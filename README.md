@@ -155,12 +155,143 @@ Source: [Ubuntu forums](http://ubuntuforums.org/showthread.php?t=1739013)
    $ sudo dpkg-reconfigure --priority=low unattended-upgrades
   ```
 
-#### 12.  Install and Configure Apache2, mod-wsgi and Git
-
+#### 12. Install and Configure Apache2, mod-wsgi and Git
  ```
   $ sudo apt-get install apache2 libapache2-mod-wsgi git
+ ```
+ * Enable mod_wsgi:
+ 
+ ```
   $ sudo a2enmod wsgi
  ```
+
+#### 13. Install and configure PostgreSQL
+  * Installing PostgreSQL Python dependencies:
+  
+  ```
+   $ sudo apt-get install libpq-dev python-dev
+  ```
+  * Installing PostgreSQL:
+
+   ```
+     $ sudo apt-get install postgresql postgresql-contrib
+   ```
+  * Check if no remote connections are allowed :
+
+   ```
+     $ sudo cat /etc/postgresql/9.3/main/pg_hba.conf
+   ```
+   
+  * Login as *postgres* User (Default User), and get into PostgreSQL shell:
+
+   ```
+     $ sudo su - postgres
+     $ psql
+   ```
+    * Create a new User named *catalog*:  `# CREATE USER catalog WITH PASSWORD 'password';`
+    * Create a new DB named *catalog*: `# CREATE DATABASE catalog WITH OWNER catalog;`
+    * Connect to the database *catalog* : `# \c catalog`
+    * Revoke all rights: `# REVOKE ALL ON SCHEMA public FROM public;`
+    * Lock down the permissions only to user *catalog*: `# GRANT ALL ON SCHEMA public TO catalog;`
+    * Log out from PostgreSQL: `# \q`. Then return to the *grader* user: `$ exit`
+
+  * Inside the Flask application, the database connection is now performed with:
+   
+   ```
+   engine = create_engine('postgresql://catalog:yourPassword@localhost/catalog')
+   ```
+
+#### 14. Install Flask and other dependencies
+
+```
+    $ sudo apt-get install python-pip
+    $ sudo pip install Flask
+    $ sudo pip install httplib2 oauth2client sqlalchemy psycopg2 sqlalchemy_utils
+  ```
+Source: [Flask Documentation](http://flask.pocoo.org/docs/0.12/installation/)
+
+#### 15. Clone the Catalog app from Github
+
+  * Make a *catalog* named directory in */var/www*
+
+    ```
+      $ sudo mkdir /var/www/catalog
+    ```
+
+  * Change the owner of the directory *catalog*
+
+    ```
+     $ sudo chown -R grader:grader /var/www/catalog
+    ```
+
+  * Clone the **bookCatalog** to the catalog directory:
+
+    ```
+     $ git clone https://github.com/sagarchoudhary96/P5-Item-Catalog.git catalog
+    ```
+
+  * Change the branch of repo **bookCatalog**  to **deployment**:
+
+    ```
+     $ cd catalog && git checkout deployment
+    ```
+
+  * Make a bookCatalog.wsgi file to serve the application over the mod_wsgi. with content:
+
+    ```
+     $ touch bookCatalog.wsgi && nano bookCatalog.wsgi
+    ```
+
+    ```
+    import sys
+    import logging
+    logging.basicConfig(stream=sys.stderr)
+    sys.path.insert(0, "/var/www/catalog/")
+
+    from bookCatalog import app as application
+    ```
+  * Inside *bookCatalog.py*  database connection is now performed with:
+
+    ```
+     engine = create_engine('postgresql://catalog:password@localhost/catalog')
+    ```
+  * Run the database_setup.py and dummyBooks.py once to setup database with dummy data:
+  
+  ```
+   $ python database_setup.py
+   $ python dummybooks.py
+  ```
+
+#### 16. Edit the default Virtual File with following content:
+
+  ```
+    $  sudo nano /etc/apache2/sites-available/000-default.conf
+  ```
+
+
+  ```
+  <VirtualHost *:80>
+    ServerName XX.XX.XX.XX
+    ServerAdmin sagar.choudhary96@gmail.com
+    WSGIScriptAlias / /var/www/catalog/bookCatalog.wsgi
+    <Directory /var/www/catalog/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    Alias /static /var/www/catalog/static
+    <Directory /var/www/catalog/static/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+  </VirtualHost>
+  ```
+Source: [Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts)
+
+#### 17. Restart Apache to launch the app
+
+   ```
+    $ sudo service apache2 restart
+   ```
 
 
 
