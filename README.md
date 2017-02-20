@@ -10,7 +10,7 @@ our one of your existing web applications onto it.
 how they are hosted, and interats with multiple systems. In this Project, we will  turn a brand-new, 
 bare bones, Linux server into the secure and efficient web application host needed by Our Applications.
 
-#### Link to Project: [ItemCatalog](-52-33-104-60.us-west-2.compute.amazonaws.com)
+#### Link to Project: [ItemCatalog](http://ec2-52-33-104-60.us-west-2.compute.amazonaws.com)
 
 * **Public IP Address:** 52.33.104.60
 * **Accessible SSH port:** 2200
@@ -24,15 +24,45 @@ bare bones, Linux server into the secure and efficient web application host need
   * Move the private key file into the folder ~/.ssh (where ~ is your environment's home directory).
   
   ```
-    mv /(current_private_key_address)/udacity_key.rsa ~/.ssh/
+    $ mv /(current_private_key_address)/udacity_key.rsa ~/.ssh/
   ```
   * Change the key permission so that only owner can read and write
   
   ```
-    chmod 600 ~/.ssh/udacity_key.rsa
+    $ chmod 600 ~/.ssh/udacity_key.rsa
   ```
   * SSH into the instance
   
   ```
-    ssh -i ~/.ssh/udacity_key.rsa root@public_IP_address
+    $ ssh -i ~/.ssh/udacity_key.rsa root@public_IP_address
+   ```
+   
+#### 3. Create New User
+  
+  * Add User grader
+  
+  ```
+   $ sudo adduser grader
+  ```
+  * Give Sudo Access to grader
+  
+  ```
+   $ sudo nano /etc/sudoers.d/grader
+  ```
+  * Add following line to this file
+  
+  ```
+   grader ALL=(ALL:ALL) ALL
+  ```
+  * To prevent the "sudo: unable to resolve host" error
+  
+   i. Edit the hosts file:
+   
+   ```
+    $ sudo nano /etc/hosts
+   ```
+   ii. Add the host:
+   
+   ```
+    $ 127.0.1.1 ip-XX-XX-XX-XX
    ```
