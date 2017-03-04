@@ -207,6 +207,7 @@ Source: [Ubuntu forums](http://ubuntuforums.org/showthread.php?t=1739013)
     $ sudo apt-get install python-pip
     $ sudo pip install Flask
     $ sudo pip install httplib2 oauth2client sqlalchemy psycopg2 sqlalchemy_utils
+    $ sudo pip install requests
   ```
 Source: [Flask Documentation](http://flask.pocoo.org/docs/0.12/installation/)
 
