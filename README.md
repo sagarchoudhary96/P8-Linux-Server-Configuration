@@ -10,7 +10,7 @@ our one of your existing web applications onto it.
 how they are hosted, and interats with multiple systems. In this Project, we will  turn a brand-new, 
 bare bones, Linux server into the secure and efficient web application host needed by Our Applications.
 
-#### Link to Project: [ItemCatalog](http://ec2-52-33-104-60.us-west-2.compute.amazonaws.com) (Link currently not working)
+#### Link to Project: [ItemCatalog](http://http://ec2-35-162-152-73.us-west-2.compute.amazonaws.com)
 
 * **Public IP Address:** 52.33.104.60
 * **Accessible SSH port:** 2200
