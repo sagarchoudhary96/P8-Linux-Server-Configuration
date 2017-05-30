@@ -12,7 +12,7 @@ bare bones, Linux server into the secure and efficient web application host need
 
 #### Link to Project: [ItemCatalog](http://ec2-35-162-152-73.us-west-2.compute.amazonaws.com)
 
-* **Public IP Address:** 52.33.104.60
+* **Public IP Address:** 35.162.152.73
 * **Accessible SSH port:** 2200
 
 ## Steps to Configure Linux server
