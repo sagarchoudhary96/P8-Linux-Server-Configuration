@@ -10,7 +10,7 @@ our one of your existing web applications onto it.
 how they are hosted, and interats with multiple systems. In this Project, we will  turn a brand-new, 
 bare bones, Linux server into the secure and efficient web application host needed by Our Applications.
 
-#### Link to Project: [ItemCatalog](http://bit.do/book-catalog)
+#### Link to Project: [ItemCatalog](http://bit.do/book_catalog)
 
 * **Public IP Address:** 34.214.112.187
 * **Accessible SSH port:** 2200
