@@ -10,9 +10,9 @@ our one of your existing web applications onto it.
 how they are hosted, and interats with multiple systems. In this Project, we will  turn a brand-new, 
 bare bones, Linux server into the secure and efficient web application host needed by Our Applications.
 
-#### Link to Project: [ItemCatalog](http://ec2-35-162-152-73.us-west-2.compute.amazonaws.com)
+#### Link to Project: [ItemCatalog](http://bit.do/book-catalog)
 
-* **Public IP Address:** 35.162.152.73
+* **Public IP Address:** 34.214.112.187
 * **Accessible SSH port:** 2200
 
 ## Steps to Configure Linux server
